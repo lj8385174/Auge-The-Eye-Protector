@@ -25,20 +25,21 @@
 
 from os import path, system
 import tkinter
+import time
 
-self_name = path.basename(__file__)
+# self_name = path.basename(__file__)
 
-file = path.expanduser('~\\Auge\\Auge.exe') # File name
+# file = path.expanduser('~\\Auge\\Auge.exe') # File name
 
-dir_name = path.expanduser('~\\Auge') # Directory name
+# dir_name = path.expanduser('~\\Auge') # Directory name
 
-if not path.isdir(dir_name):
-    system("mkdir "+dir_name)
-if not path.isfile(file):
-    copy_com = "copy Auge.exe "+dir_name+"\\"
-    system(copy_com)
-    task = "schtasks /Create /TN \"Auge\" /SC MINUTE /Mo 20 /tr " +"\"" + file +"\""
-    system(task)
+# if not path.isdir(dir_name):
+#     system("mkdir "+dir_name)
+# if not path.isfile(file):
+#     copy_com = "copy Auge.exe "+dir_name+"\\"
+#     system(copy_com)
+#     task = "schtasks /Create /TN \"Auge\" /SC MINUTE /Mo 20 /tr " +"\"" + file +"\""
+#     system(task)
 
 
 def countdown(count):
@@ -48,16 +49,18 @@ def countdown(count):
     else:
         label.master.quit()
 
-
+time.sleep(0)
 root = tkinter.Tk()
-label = tkinter.Label(font=('Times New Roman', '80'), fg='black')
+label = tkinter.Label(font=('Times New Roman', '20'), fg='black')
 label.master.overrideredirect(True)
 
 ws = label.master.winfo_screenwidth()
 hs = label.master.winfo_screenheight()
 
-hs = hs // 2 - 100
-ws = ws // 4
+# hs = hs // 2 - 100
+hs = 1 
+# ws = ws // 4
+ws = int(ws *8 / 10)
 label.master.geometry('+{0}+{1}'.format(ws, hs))
 print (ws, hs)
 
