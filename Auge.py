@@ -26,6 +26,9 @@
 from os import path, system
 import tkinter
 import time
+from tendo import singleton
+import win32gui as wg
+import psutil    
 
 # self_name = path.basename(__file__)
 
@@ -40,16 +43,28 @@ import time
 #     system(copy_com)
 #     task = "schtasks /Create /TN \"Auge\" /SC MINUTE /Mo 20 /tr " +"\"" + file +"\""
 #     system(task)
-
-
+me = singleton.SingleInstance() # will sys.exit(-1) if other instance is running
+Name = 'League of Legends.exe'
 def countdown(count):
     label['text'] = 'Look away for : {0}s'.format(count)
     if count > 0:
         label.master.after(1000, countdown, count - 1)
     else:
         label.master.quit()
+time.sleep(5)
+hw = wg.GetForegroundWindow()
+windowName = wg.GetWindowText(hw).lower()
+if windowName == 'league of legends (tm) client':
+    while True:
+        time.sleep(20)
+        hw = wg.GetForegroundWindow()
+        windowName = wg.GetWindowText(hw).lower()
+        if windowName != 'league of legends (tm) client':
+            break
+time.sleep(10)
+print(windowName)
+# print(Name in (p.name() for p in psutil.process_iter()))
 
-time.sleep(0)
 root = tkinter.Tk()
 label = tkinter.Label(font=('Times New Roman', '20'), fg='black')
 label.master.overrideredirect(True)
@@ -57,10 +72,10 @@ label.master.overrideredirect(True)
 ws = label.master.winfo_screenwidth()
 hs = label.master.winfo_screenheight()
 
-# hs = hs // 2 - 100
-hs = 1 
-# ws = ws // 4
-ws = int(ws *8 / 10)
+hs = hs // 2 - 100
+# hs = 1 
+ws = ws // 4
+# ws = int(ws *8 / 10)
 label.master.geometry('+{0}+{1}'.format(ws, hs))
 print (ws, hs)
 
